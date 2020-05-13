@@ -9,4 +9,9 @@ class HelloApiController {
 
     @GetMapping("/api/v1/hello")
     fun hello() = ApiResponse.ok("world")
+
+    @GetMapping("/hello")
+    fun hello2(): String? {
+        return "HelloWorld"
+    }
 }
