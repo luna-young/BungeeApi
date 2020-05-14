@@ -1,6 +1,10 @@
 spring:
   datasource:
-
+    url: jdbc:mysql://bungee-db-dev-01.ccd5h24epdix.ap-northeast-2.rds.amazonaws.com:3306/bungee?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
+    username: bungee
+    password: bungeeapi
+    data-username: bungee
+    data-password: bungeeapi
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
