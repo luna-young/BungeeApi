@@ -23,6 +23,7 @@ object JWTUtil {
         .withSubject(SUBJECT)
         .withIssuedAt(Date())
         .withExpiresAt(Date(Date().time+ EXPIRE_TIME))
+        .withClaim(JWTClaims.EMAIL, email)
         .sign(algorithm)
 
     fun createRefreshToken(email:String) = JWT.create()
