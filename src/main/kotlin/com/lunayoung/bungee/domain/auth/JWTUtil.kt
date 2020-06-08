@@ -2,6 +2,7 @@ package com.lunayoung.bungee.domain.auth
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
+import com.auth0.jwt.interfaces.DecodedJWT
 import java.util.*
 
 //하는 일이 고정적이고 다른 코드에 영향을 주지 않기 때문에 싱글턴으로 선언
@@ -34,6 +35,22 @@ object JWTUtil {
         .withClaim(JWTClaims.EMAIL, email)
         .sign(refreshAlgorithm)
 
+    //토큰의 유효성을 검증하고 DecodedJWT 객체 반환
+    fun verify(token: String): DecodedJWT =
+            JWT.require(algorithm)
+                    .withIssuer(ISSUER)
+                    .build()
+                    .verify(token)
+
+    fun verifyRefresh(token: String): DecodedJWT =
+            JWT.require(algorithm)
+                    .withIssuer(ISSUER)
+                    .build()
+                    .verify(token)
+
+    //토큰의 클레임 반환
+    fun extractEmail(jwt: DecodedJWT): String =
+            jwt.getClaim(JWTClaims.EMAIL).asString()
 
     object JWTClaims {
         const val EMAIL = "email"
