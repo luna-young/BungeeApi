@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile
 @RequestMapping("/api/v1")
 class ProductApiController @Autowired constructor(
     private val productImageService: ProductImageService,
-    private val productRegistration: ProductRegistrationService,
+    private val productRegistration: ProductRegistrationService
     //private val productService: ProductService
 ) {
 
