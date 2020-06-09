@@ -1,4 +1,4 @@
-package com.lunayoung.bungee.confing
+package com.lunayoung.bungee.config
 
 import com.lunayoung.bungee.interceptor.TokenValidationInterceptor
 import org.springframework.beans.factory.annotation.Autowired
