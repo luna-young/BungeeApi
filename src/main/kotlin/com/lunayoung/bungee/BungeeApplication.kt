@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 open class BungeeApplication
     fun main() {
         runApplication<BungeeApplication>()
-        print("로그인 에러 픽스 테스트")
+        print("bungee v.1.3")
     }
