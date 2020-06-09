@@ -21,6 +21,7 @@ class TokenValidationInterceptor @Autowired constructor(
                            handler: Any
     ): Boolean {
         val authHeader = request.getHeader(AUTHORIZATION) //HttpServletRequest에 포함된 Auth헤더 반환
+        print("----authHeader: $authHeader")
 
         if(authHeader.isNullOrBlank()) {
             val pair = request.method to request.servletPath
