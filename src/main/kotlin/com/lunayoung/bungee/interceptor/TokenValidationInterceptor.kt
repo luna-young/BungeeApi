@@ -16,7 +16,10 @@ class TokenValidationInterceptor @Autowired constructor(
 ) : HandlerInterceptor {
     private val logger = LoggerFactory.getLogger(this::class.java)
 
-    override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
+    override fun preHandle(request: HttpServletRequest,
+                           response: HttpServletResponse,
+                           handler: Any
+    ): Boolean {
         val authHeader = request.getHeader(AUTHORIZATION) //HttpServletRequest에 포함된 Auth헤더 반환
 
         if(authHeader.isNullOrBlank()) {
@@ -27,8 +30,11 @@ class TokenValidationInterceptor @Autowired constructor(
             }
             return true
         } else {
-            val grantType = request.getParameter("grant_type")
+            val grantType = request.getParameter(GRANT_TYPE)
+            print("---grantType: $grantType")
             val token = extractToken(authHeader)
+            print("---token: $token")
+
             return handleToken(grantType, token, response)
         }
     }
@@ -61,7 +67,7 @@ class TokenValidationInterceptor @Autowired constructor(
         private const val AUTHORIZATION = "Authorization" //Authorization 토큰이 포함된 헤더값을 가져오기 위한 상수
         private const val BEARER = "Bearer" //Auth 헤더에 jwt 토큰을 전달할 때 사용되느 인증방법을 나타내는 스키마. 실제 토큰을 사용하려면 헤더 값에서 이 문자열을 제거한 후 사용해야 함
         private const val GRANT_TYPE = "grant_type" //토큰 재발행을 요청할 때 사용될 파라미터의 키와 값
-        const val GRANT_TYPE_REFRESH = "refresh_tokne" //상동
+        const val GRANT_TYPE_REFRESH = "refresh_token" //상동
 
         //토큰 인증없이 사용할 수 있는 url을 정의하기 위해 선언한 리스트
         private val DEFAULT_ALLOWED_API_URLS = listOf(
