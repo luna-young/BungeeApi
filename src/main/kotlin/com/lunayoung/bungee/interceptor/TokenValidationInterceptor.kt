@@ -80,7 +80,8 @@ class TokenValidationInterceptor @Autowired constructor(
                 "POST" to "/api/v1/signin",
                 "POST" to "/api/v1/users",
                 "GET" to "/api/v1/hello",
-                "GET" to "/bungee/images"
+                "GET" to "/bungee/images",
+                 "GET" to "/images"
             )
         }
 }
