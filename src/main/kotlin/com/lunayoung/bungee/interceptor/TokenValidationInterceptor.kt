@@ -79,7 +79,8 @@ class TokenValidationInterceptor @Autowired constructor(
         private val DEFAULT_ALLOWED_API_URLS = listOf(
                 "POST" to "/api/v1/signin",
                 "POST" to "/api/v1/users",
-                "GET" to "/api/v1/hello"
+                "GET" to "/api/v1/hello",
+                "GET" to "/bungee/images"
             )
         }
 }
