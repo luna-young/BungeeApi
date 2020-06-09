@@ -2,6 +2,7 @@ package com.lunayoung.bungee.interceptor
 
 import com.lunayoung.bungee.domain.auth.JWTUtil
 import com.lunayoung.bungee.domain.auth.UserContextHolder
+import org.jetbrains.annotations.Nullable
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -21,9 +22,10 @@ class TokenValidationInterceptor @Autowired constructor(
                            handler: Any
     ): Boolean {
         val authHeader = request.getHeader(AUTHORIZATION) //HttpServletRequest에 포함된 Auth헤더 반환
-        print("----authHeader: $authHeader")
+        print("\n----authHeader 1: $authHeader")
 
         if(authHeader.isNullOrBlank()) {
+            print("auth header is Null or blank")
             val pair = request.method to request.servletPath
             if(!DEFAULT_ALLOWED_API_URLS.contains(pair)){
                 response.sendError(401) //허용된 url이 아니라면 클라이언트에 권한이 없다는 것을 알림
@@ -31,29 +33,32 @@ class TokenValidationInterceptor @Autowired constructor(
             }
             return true
         } else {
+
             val grantType = request.getParameter(GRANT_TYPE)
-            print("---grantType: $grantType")
+            print("\n---grantType 1: $grantType")
             val token = extractToken(authHeader)
-            print("---token: $token")
+            print("\n---token 1: $token")
 
             return handleToken(grantType, token, response)
         }
     }
 
     private fun handleToken(
-            grantType: String,
+            grantType: String?,
             token: String,
             response: HttpServletResponse
     ) = try {
+        print ("\n ###handleToken")
         val jwt = when(grantType) {
             GRANT_TYPE_REFRESH -> JWTUtil.verifyRefresh(token)
             else -> JWTUtil.verify(token)
         }
         val email = JWTUtil.extractEmail(jwt)
+        print("\n email: $email")
         userContextHolder.set(email)
         true
     } catch (e: Exception) {
-        logger.error("토큰 검증 실패. token = $token", e)
+        logger.error("\n 토큰 검증 실패. token = $token", e)
         response.sendError(401)
         false
     }
@@ -73,7 +78,8 @@ class TokenValidationInterceptor @Autowired constructor(
         //토큰 인증없이 사용할 수 있는 url을 정의하기 위해 선언한 리스트
         private val DEFAULT_ALLOWED_API_URLS = listOf(
                 "POST" to "/api/v1/signin",
-                "POST" to "/api/v1/users"
+                "POST" to "/api/v1/users",
+                "GET" to "/api/v1/hello"
             )
         }
 }
