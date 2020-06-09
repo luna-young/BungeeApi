@@ -48,7 +48,7 @@ class TokenValidationInterceptor @Autowired constructor(
             token: String,
             response: HttpServletResponse
     ) = try {
-        print ("\n ###handleToken")
+        print ("\n ###handleToken: grantType? $grantType")
         val jwt = when(grantType) {
             GRANT_TYPE_REFRESH -> JWTUtil.verifyRefresh(token)
             else -> JWTUtil.verify(token)

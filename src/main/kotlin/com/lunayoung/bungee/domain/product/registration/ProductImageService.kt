@@ -18,6 +18,8 @@ class ProductImageService @Autowired constructor(
     private val productImageRepository: ProductImageRepository
 ) {
 
+    val TAG = ProductImageService::class.simpleName
+
     @Value("\${bungee.file-upload.default-dir}") //application.yml에 기입한 파일 업로드 디렉토리 설정을 읽은후 애너테이션이 붙은 변수에 대입
     var uploadPath: String? = ""
 
@@ -40,12 +42,15 @@ class ProductImageService @Autowired constructor(
         val date = SimpleDateFormat("yyyyMMdd").format(Date())
 
         val filePath = "/images/$date/$uuid.$extension"
+        print("\n ###$TAG, filePath: $filePath")
         val targetFile = File("$uploadPath/$filePath")
+        print("\n ###$TAG, targetFile: $filePath")
         val thumbnail = targetFile.absolutePath
             .replace(uuid, "$uuid-thumb")
             .let(::File)
 
         targetFile.parentFile.mkdirs() //파일이 저장될 디렉토리 생성
+        print("\n ###$TAG, parentFile 절대경로: ${targetFile.parentFile.absolutePath}")
         image.transferTo(targetFile) //MultipartFile 클래스에 선언된 함수로 업로드 파일을 파라미터로 지정된 파일 경로에 저장해줌
 
         Thumbnails.of(targetFile)
