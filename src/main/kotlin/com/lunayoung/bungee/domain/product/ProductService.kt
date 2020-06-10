@@ -2,6 +2,7 @@ package com.lunayoung.bungee.domain.product
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import java.lang.IllegalArgumentException
 
@@ -21,10 +22,15 @@ class ProductService @Autowired constructor(
             categoryId != null,
             direction
         )
+        print ("\n ###condition: $condition")
+        print ("\n ###categoryId: $categoryId")
+        print ("\n ###productId: $productId")
+        print ("\n ###pageable: $pageable")
 
         return when(condition) { //코틀린의 when절에서는 객체의 비교도 허용함! (코틀린 when절의 강력한 기능 중 하나)
+
             NEXT_IN_CATEGORY -> productRepository
-                .findByCategoryIdLessThanOrderByIdDesc(
+                .findByCategoryIdAndIdLessThanOrderByIdDesc(
                     categoryId, productId, pageable
                 )
             PREV_IN_CATEGORY -> productRepository
