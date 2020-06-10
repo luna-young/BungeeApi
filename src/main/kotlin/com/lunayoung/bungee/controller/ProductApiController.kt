@@ -27,7 +27,7 @@ class ProductApiController @Autowired constructor(
         @RequestParam(required = false) limit: Int?
     ) = productService
         .search(categoryId, productId, direction, limit ?: 10)
-        .mapNotNull { Product::toProductItemResponse} //toProductItemResponse()의 값이 null일 경우 mapNotNull() 함수가 리스트에서 필터링함 
+        .mapNotNull { Product::toProductItemResponse} //toProductItemResponse()의 값이 null일 경우 mapNotNull() 함수가 리스트에서 필터링함
         .let {ApiResponse.ok(it)}
 
     @PostMapping("/product_images")
