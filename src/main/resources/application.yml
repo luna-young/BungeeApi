@@ -19,8 +19,7 @@ spring:
 
 bungee:
   file-upload:
-    default-dir: /home/luna/bungee
-    ##/bungee
+    default-dir: /bungee
 
 server:
   port: 80
