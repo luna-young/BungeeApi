@@ -6,7 +6,7 @@ import com.lunayoung.bungee.domain.product.ProductService
 import com.lunayoung.bungee.domain.product.registration.ProductImageService
 import com.lunayoung.bungee.domain.product.registration.ProductRegistrationRequest
 import com.lunayoung.bungee.domain.product.registration.ProductRegistrationService
-import com.lunayoung.bungee.domain.product.toProductItemResponse
+import com.lunayoung.bungee.domain.product.toProductListItemResponse
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
@@ -27,7 +27,7 @@ class ProductApiController @Autowired constructor(
         @RequestParam(required = false) limit: Int?
     ) = productService
         .search(categoryId, productId, direction, limit ?: 10)
-        .mapNotNull { Product::toProductItemResponse} //toProductItemResponse()의 값이 null일 경우 mapNotNull() 함수가 리스트에서 필터링함
+        .mapNotNull { Product::toProductListItemResponse } //toProductItemResponse()의 값이 null일 경우 mapNotNull() 함수가 리스트에서 필터링함
         .let {ApiResponse.ok(it)}
 
     @PostMapping("/product_images")
