@@ -1,5 +1,6 @@
 package com.lunayoung.bungee.domain.product
 
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
@@ -11,6 +12,7 @@ interface ProductRepository :  JpaRepository<Product, Long> {
     //스크롤에 따라 상품의 id값을 기준으로 전/후를 읽어야하므로 다음과 같은 두개의 함수를 선언한다
 
     //상품리스트가 위로 스크롤될 때 호출되는 함수 --최신데이터를 로딩해야하므로 id값이 커야함
+    @JsonManagedReference
     fun findByCategoryIdGreaterThanOrderByIdDesc (
         categoryId : Int?, id: Long, pageable: Pageable
     ): List<Product>
