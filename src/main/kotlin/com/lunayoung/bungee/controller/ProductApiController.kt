@@ -33,9 +33,10 @@ class ProductApiController @Autowired constructor(
         @RequestParam productId: Long,
         @RequestParam(required = false) categoryId: Int?,
         @RequestParam direction: String,
+        @RequestParam(required = false) keyword: String?,
         @RequestParam(required = false) limit: Int?
     ) = productService
-        .search(categoryId, productId, direction, limit ?: 10)
+        .search(categoryId, productId, direction, keyword, limit ?: 10)
         .mapNotNull (Product::toProductListItemResponse )  //toProductItemResponse()의 값이 null일 경우 mapNotNull() 함수가 리스트에서 필터링함
         .let {ApiResponse.ok(it)}
 
