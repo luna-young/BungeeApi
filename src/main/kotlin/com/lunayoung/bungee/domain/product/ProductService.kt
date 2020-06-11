@@ -3,6 +3,7 @@ package com.lunayoung.bungee.domain.product
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.lang.IllegalArgumentException
 
@@ -10,6 +11,12 @@ import java.lang.IllegalArgumentException
 class ProductService @Autowired constructor(
     private val productRepository: ProductRepository
 ) {
+    
+
+    //상품하나를 조회한다 -> 레파지토리에서 id로 읽어온다
+    //아이디에 해당하는 상품이 존재하지 않을 수도 있으므로 findByIdOrNull()을 통해
+    //null 혹은 존재하는 엔티티를 반환하도록 만듦
+    fun get(id: Long) = productRepository.findByIdOrNull(id)
 
     fun search (
         categoryId: Int?,

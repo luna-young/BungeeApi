@@ -1,12 +1,14 @@
 package com.lunayoung.bungee.controller
 
 import com.lunayoung.bungee.common.ApiResponse
+import com.lunayoung.bungee.common.BungeeException
 import com.lunayoung.bungee.domain.product.Product
 import com.lunayoung.bungee.domain.product.ProductService
 import com.lunayoung.bungee.domain.product.registration.ProductImageService
 import com.lunayoung.bungee.domain.product.registration.ProductRegistrationRequest
 import com.lunayoung.bungee.domain.product.registration.ProductRegistrationService
 import com.lunayoung.bungee.domain.product.toProductListItemResponse
+import com.lunayoung.bungee.domain.product.toProductResponse
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
@@ -18,6 +20,13 @@ class ProductApiController @Autowired constructor(
     private val productRegistration: ProductRegistrationService,
     private val productService: ProductService
 ) {
+
+    val TAG = ProductApiController::class.java.simpleName
+
+    @GetMapping("/products/{id}")
+    fun get(@PathVariable id:Long) = productService.get(id)?.let{
+        ApiResponse.ok(it.toProductResponse())
+    } ?: throw BungeeException("상품 정보를 찾을 수 없습니다. $TAG")
 
     @GetMapping("/products")
     fun search (
