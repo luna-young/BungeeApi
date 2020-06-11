@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 open class BungeeApplication
     fun main() {
         runApplication<BungeeApplication>()
-        print("bungee v.1.3")
+        print("bungee v.1.5")
     }
