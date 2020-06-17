@@ -43,6 +43,7 @@ class ProductImageService @Autowired constructor(
 
         val filePath = "/images/$date/$uuid.$extension"
         print("\n ###$TAG, filePath: $filePath")
+        //eg. images/20200617/~~ 이런 식
         val targetFile = File("$uploadPath/$filePath")
         print("\n ###$TAG, targetFile: $filePath")
         val thumbnail = targetFile.absolutePath
