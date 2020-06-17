@@ -2,6 +2,7 @@ package com.lunayoung.bungee.config
 
 import com.lunayoung.bungee.interceptor.TokenValidationInterceptor
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
@@ -18,8 +19,13 @@ class WebConfig @Autowired constructor(
                 .addPathPatterns("/api/**") // /api/ 이하의 uri에서 인터셉터가 동작하도록 설정
     }
 
+    @Value("\${bungee.file-upload.default-dir}") //application.yml에 기입한 파일 업로드 디렉토리 설정을 읽은후 애너테이션이 붙은 변수에 대입
+    var uploadPath: String? = ""
+
     override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
-            registry.addResourceHandler("/img/**", "/images/**", "/test/**", "/images/**", "/images/**")
-                .addResourceLocations("classpath:/static/img/", "file:/bungee/images/", "file:///C:/Users/LUNA/Pictures/Saved Pictures/", "file:///bungee/images/", " file:bungee/images/")
+            registry.addResourceHandler("/img/**", "/images/**", "/test/**", "/images/**", "/images/**", "images/**")
+                .addResourceLocations("classpath:/static/img/", "file:/bungee/images/", "file:///C:/Users/LUNA/Pictures/Saved Pictures/", "file:///bungee/images/", " file:bungee/images/",
+                    "file:$uploadPath/images/"
+                )
 
 }    }
