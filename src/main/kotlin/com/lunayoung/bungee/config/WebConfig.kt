@@ -29,8 +29,8 @@ class WebConfig @Autowired constructor(
              //   )
 
 
-        registry.addResourceHandler("/images/**")
-            .addResourceLocations("file:/bungee/images/")
+        registry.addResourceHandler("/img/**")
+            .addResourceLocations("classpath:/static/img/")
 
         registry.addResourceHandler("/images/**")
             .addResourceLocations("file:$uploadPath/images/")
