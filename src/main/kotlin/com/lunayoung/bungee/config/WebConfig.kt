@@ -19,9 +19,7 @@ class WebConfig @Autowired constructor(
     }
 
     override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
-            registry.addResourceHandler("/images/**")
-                .addResourceLocations("classpath:/static/images/")
-//        registry.addResourceHandler("/images/**")
-//                .addResourceLocations("file:///bungee/images")
-    }
-}
+            registry.addResourceHandler("/img/**", "/images/**")
+                .addResourceLocations("classpath:/static/img/", "file:///bungee/images")
+
+}    }
