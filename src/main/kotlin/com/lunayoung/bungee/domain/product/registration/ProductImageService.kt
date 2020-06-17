@@ -50,7 +50,7 @@ class ProductImageService @Autowired constructor(
             .let(::File)
 
         targetFile.parentFile.mkdirs() //파일이 저장될 디렉토리 생성
-        print("\n ###$TAG, parentFile 절대경로: $targetFile.parentFile.absolutePath}")
+        print("\n ###$TAG, parentFile 절대경로: ${targetFile.parentFile.absolutePath}")
         image.transferTo(targetFile) //MultipartFile 클래스에 선언된 함수로 업로드 파일을 파라미터로 지정된 파일 경로에 저장해줌
 
         Thumbnails.of(targetFile)
