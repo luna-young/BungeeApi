@@ -23,9 +23,16 @@ class WebConfig @Autowired constructor(
     var uploadPath: String? = ""
 
     override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
-            registry.addResourceHandler("/img/**", "/images/**", "/test/**", "/images/**", "/images/**", "images/**")
-                .addResourceLocations("classpath:/static/img/", "file:/bungee/images/", "file:///C:/Users/LUNA/Pictures/Saved Pictures/", "file:///bungee/images/", " file:bungee/images/",
-                    "file:$uploadPath/images/"
-                )
+            //registry.addResourceHandler("/img/**", "/images/**", "/test/**", "/images/**", "/images/**", "images/**")
+            //    .addResourceLocations("classpath:/static/img/", "file:/bungee/images/", "file:///C:/Users/LUNA/Pictures/Saved Pictures/", "file:///bungee/images/", "file:bungee/images/",
+             //       "file:$uploadPath/images/"
+             //   )
+
+
+        registry.addResourceHandler("/images/**")
+            .addResourceLocations("file:/bungee/images/")
+
+        registry.addResourceHandler("/images/**")
+            .addResourceLocations("file:$uploadPath/images/")
 
 }    }
